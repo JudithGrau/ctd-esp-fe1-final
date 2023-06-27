@@ -1,7 +1,12 @@
 import { configureStore} from "@reduxjs/toolkit";
+import favoritosReducer from "./favoritosReducer";
+import personajesReducer from "./personajesReducer";
 
 const store = configureStore({
-    //Reducer: 
+    reducer: {
+        personajes: personajesReducer,
+        favoritos: favoritosReducer,
+    } 
 });
 
 // Tipamos el hook useSelector y useDispatch
