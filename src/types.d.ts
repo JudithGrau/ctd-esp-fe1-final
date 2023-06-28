@@ -8,5 +8,8 @@ interface Personaje {
     episodios?: Array<string>,
 }
 interface Episodio {
-    
+    id: number,
+    titulo: string,
+    fecha: string,
+    episodio: string,
 }

@@ -1,6 +1,8 @@
 import { fetchToggleFavorito } from '../../store/favoritosReducer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useNavigate } from 'react-router-dom';
 import BotonFavorito from '../botones/boton-favorito.componente';
+import { setDetalle } from '../../store/detalleReducer';
 import './tarjeta-personaje.css';
 
 interface TarjetaPersonajeProps {
@@ -21,14 +23,21 @@ const TarjetaPersonaje = ({ personaje }: TarjetaPersonajeProps) => {
     const dispatch = useAppDispatch()
     const favoritosState = useAppSelector(state => state.favoritos)
 
+    const navigate = useNavigate()
+
     const onClickFavorito = () => {
         dispatch(fetchToggleFavorito(personaje.id))
+    }
+
+    const onClickImg = () => {
+        dispatch(setDetalle(personaje))
+        navigate(`/detalle`)
     }
 
     const esFavorito = favoritosState.listado.includes(personaje.id)
 
     return <div className="tarjeta-personaje">
-        <img src={personaje.imagen} alt={personaje.nombre}/>
+        <img onClick={onClickImg} src={personaje.imagen} alt={personaje.nombre}/>
         <div className="tarjeta-personaje-body">
             <span>{personaje.nombre}</span>
             <BotonFavorito onClick={onClickFavorito} esFavorito={esFavorito} />

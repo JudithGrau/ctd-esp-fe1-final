@@ -1,5 +1,8 @@
 import { PersonajesState } from "../store/personajesReducer"
 
+/**
+ * Hace un map de los personajes de la API a personajes de tipo Personaje
+ */
 const mapPersonajes = (personajesToMap: any) => {
     return personajesToMap.map((personaje: any) => ({
         id: personaje.id,
@@ -8,9 +11,13 @@ const mapPersonajes = (personajesToMap: any) => {
         imagen: personaje.image,
         planeta: personaje.location.name,
         episodios: personaje.episode,
+        genero: personaje.gender,
     }))
 }
 
+/**
+ * Trae los personajes de la API según la página
+ */
 export const getPersonajesByPage = async (url: string) => {
     const response = await fetch(url)
         .then((response) => response.json())
@@ -23,14 +30,23 @@ export const getPersonajesByPage = async (url: string) => {
     return data
 }
 
+/**
+ * Trae los personajes de la API (primera página)
+ */
 export const getPersonajes = async () => {
     return getPersonajesByPage(`https://rickandmortyapi.com/api/character?page=1`)
 }
 
+/**
+ * Trae el o los personajes de la API según el filtro
+ */
 export const getPersonajesByFilter = async (filter: string) => {
     return getPersonajesByPage(`https://rickandmortyapi.com/api/character/?name=${filter}&page=1`)
 }
 
+/**
+ * Trae los personajes de la API según el array de ids
+ */
 export const getPersonajesByArray = async (array: Array<number>) => {
     let data = []
     if (array.length > 0) {
@@ -40,6 +56,35 @@ export const getPersonajesByArray = async (array: Array<number>) => {
             data = mapPersonajes(response)
         } else {
             data = mapPersonajes([response])
+        }
+    }
+    return data
+}
+
+/**
+ * Hace un Map a los episodios de la API a episodios de tipo Episodio
+ */
+const mapEpisodes = (episodesToMap: any) => {
+    return episodesToMap.map((episodio: any) => ({
+        id: episodio.id,
+        titulo: episodio.name,
+        fecha: episodio.air_date,
+        episodio: episodio.episode,
+    }))
+}
+
+/**
+ * Trae los episodios de la API según el array de ids de episodios
+ */
+export const getEpisodiosByArray = async (array: Array<number>) => {
+    let data = []
+    if (array.length > 0) {
+        const response = await fetch(`https://rickandmortyapi.com/api/episode/${String(array)}`)
+            .then((response) => response.json())
+        if (response.length > 0) {
+            data = mapEpisodes(response)
+        } else {
+            data = mapEpisodes([response])
         }
     }
     return data
