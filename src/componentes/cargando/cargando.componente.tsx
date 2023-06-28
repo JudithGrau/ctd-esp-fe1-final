@@ -4,8 +4,7 @@ import './cargando.css'
 const Cargando = () => {
     return (
         <div className='cargando'>
-            <p>Cargando ...</p>
-            <p>Cargando ...</p>
+            <p>Cargando personajes...</p>
         </div>
     )
 }

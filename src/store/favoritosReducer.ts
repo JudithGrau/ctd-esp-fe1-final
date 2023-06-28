@@ -6,11 +6,13 @@ import { RootState } from './store'
 interface FavoritosState {
     listado: Array<number>,
     personajes: Array<Personaje>,
+    textoPorDefecto: string,
 }
 
 const initialState: FavoritosState = {
     listado: [],
     personajes: [],
+    textoPorDefecto: 'Texto por defecto',
 }
 
 export const fetchFavoritos = createAsyncThunk(
@@ -65,7 +67,8 @@ const favoritosSlice = createSlice({
                 state.personajes = action.payload
             })
             .addCase(fetchResetFavoritos.fulfilled, (state, action) => {
-                state.listado = action.payload
+                state.listado = action.payload;
+                state.textoPorDefecto = 'No seleccionaste ningún personaje como favorito'
             })
     }
 })

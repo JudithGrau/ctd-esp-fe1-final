@@ -14,15 +14,17 @@ import { fetchResetFavoritos } from "../store/favoritosReducer";
 
 const PaginaFavoritos = () => {
     const favoritos = useAppSelector(state => state.favoritos)
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+    const noHayPersonajes = favoritos.personajes.length === 0;
 
     return <div className="container">
         <div className="actions">
             <h3>Personajes Favoritos</h3>
             <button onClick={() => dispatch(fetchResetFavoritos())} className="danger">Quitar todos</button>
         </div>
+        {noHayPersonajes && <p>{favoritos.textoPorDefecto}</p>}
         <GrillaPersonajes personajes={favoritos.personajes} />
     </div>
 }
 
-export default PaginaFavoritos
+export default PaginaFavoritos;
