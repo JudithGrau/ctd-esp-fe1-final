@@ -12,7 +12,7 @@ interface FavoritosState {
 const initialState: FavoritosState = {
     listado: [],
     personajes: [],
-    textoPorDefecto: 'Texto por defecto',
+    textoPorDefecto: 'No seleccionaste ningún personaje como favorito',
 }
 
 export const fetchFavoritos = createAsyncThunk(
